@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,6 +29,13 @@ public class StreamStudy {
         List<String> words = Arrays.asList(contents.split("[\\P{L}]+"));
 
         // TODO 이 부분에 구현한다.
+        // 실습 2
+        words.stream().filter(word -> word.length() > 12)
+                .sorted(Comparator.reverseOrder())
+                .limit(100)
+                .distinct()
+                .map(String::toLowerCase)
+                .forEach(System.out::println);
     }
 
     public static List<Integer> doubleNumbers(List<Integer> numbers) {
@@ -38,7 +46,11 @@ public class StreamStudy {
         return numbers.stream().reduce(0, (x, y) -> x + y);
     }
 
+    // 실습 1
     public static long sumOverThreeAndDouble(List<Integer> numbers) {
-        return 0;
+        return numbers.stream()
+                .filter(num -> num > 3)
+                .map(num -> num * 2)
+                .reduce(0, (x, y) -> x + y);
     }
 }
